@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".JsbridgeActivity"
+    android:orientation="vertical"
+    android:background="#ffffff">
+
+    <ViewStub
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+    </ViewStub>
+
+    <Button
+        android:id="@+id/top"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="sendtojs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发送数据到js"/>
+
+    <com.github.lzyzsd.jsbridge.BridgeWebView
+        android:background="#fffff"
+        app:layout_constraintTop_toBottomOf="@+id/top"
+        android:id="@+id/webview"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

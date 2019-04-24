@@ -9,6 +9,7 @@
 <p id="show"></p>
 <br/>
 <button id="click" onclick="callAndroid()">发送到java</button>
+<button  onclick="callBrigeAndroid()">发送到安卓</button>
 </body>
 <script>
 function callJS(str){
@@ -19,6 +20,52 @@ function callJS(str){
       messageEntity.receiveJs("hello android")
       document.getElementById("show").innerHTML = str
    }
+
+
+ function callBrigeAndroid() {
+//call native method
+window.WebViewJavascriptBridge.callHandler(
+                'toandroid'
+                , {'name': 'kson'}
+                , function(responseData) {
+                    document.getElementById("show").innerHTML = "send get responseData from java, data = " + responseData
+                }
+            );
+
+            }
+
+   function connectWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                callback(WebViewJavascriptBridge)
+            } else {
+                document.addEventListener(
+                    'WebViewJavascriptBridgeReady'
+                    , function() {
+                        callback(WebViewJavascriptBridge)
+                    },
+                    false
+                );
+            }
+        }
+        connectWebViewJavascriptBridge(function(bridge) {
+            bridge.init(function(message, responseCallback) {
+                console.log('JS got a message', message);
+                var data = {
+                    'Javascript Responds': '测试中文!'
+                };
+                if (responseCallback) {
+                    console.log('JS responding with', data);
+                    responseCallback(data);
+                }
+            });
+            bridge.registerHandler("hello", function(data, responseCallback) {
+                document.getElementById("show").innerHTML = ("data from Java: = " + data);
+                if (responseCallback) {
+                    var responseData = "我是js，收到le安卓的消息，回传给安卓消息";
+                    responseCallback(responseData);
+                }
+            });
+        })
 
 </script>
 
