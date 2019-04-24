@@ -1,0 +1,26 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>webview和js交互</title>
+</head>
+
+<body>
+<p id="show"></p>
+<br/>
+<button id="click" onclick="callAndroid()">发送到java</button>
+</body>
+<script>
+function callJS(str){
+      alert(str);
+      document.getElementById("show").innerHTML = str
+   }
+   function callAndroid(str){
+      messageEntity.receiveJs("hello android")
+      document.getElementById("show").innerHTML = str
+   }
+
+</script>
+
+
+</html>
